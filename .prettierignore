@@ -1,0 +1,7 @@
+node_modules/
+.expo/
+dist/
+package-lock.json
+AGENTS.md
+prompts/
+assets/

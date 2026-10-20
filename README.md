@@ -1,56 +1,59 @@
-# Welcome to your Expo app 👋
+# Leitura Fácil
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo móvel destinado à coleta, conferência e sincronização de leituras de medidores de água e gás em condomínios.
+Priorizar confiabilidade dos dados, operação em campo, acessibilidade, desempenho, simplicidade da interface e rastreabilidade das alterações.
+Aplicação assistida por IA codex SSD
 
-## Get started
+##
 
-1. Install dependencies
+![Tela de recebimento de peças](/specs/03-features/AUTH-001-login/assets/login-reference.png)
 
-   ```bash
-   npm install
-   ```
+## Tecnologia
 
-2. Start the app
+- React Native
+- Expo
+- SQL Lite
+- AWS
 
-   ```bash
-   npx expo start
-   ```
+## Executar
 
-In the output, you'll find options to open the app in a
+Requisitos: Node.js 24 LTS e npm. Após clonar, execute `npm ci`.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```powershell
+npm start
+npm run android
+npm run web
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Use dispositivo Android ou emulador para validar SQLite. Compilação local iOS exige macOS. A rota web verifica somente a interface; SQLite web ainda não está habilitado.
 
-### Other setup steps
+```powershell
+npm run typecheck
+npm run lint
+npm test
+npm run format:check
+npx expo install --check
+npx expo-doctor
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Estrutura
 
-## Learn more
+- `app/`: layout Expo Router e rota de verificação.
+- `src/theme/`: tokens e Inter.
+- `src/database/`: SQLite e migrações versionadas, sem tabelas de negócio.
+- `src/stores/`: sessão não configurada, sem tokens ou autenticação.
+- `src/api/`: configuração pública opcional, sem HTTP.
+- `assets/`: imagens provisórias do template oficial.
+- `tests/`: configuração API e proteção de versão do banco.
+- `specs/`: registro BOOT-001 e ADR.
+- `prompts/` e `AGENTS.md`: documentos originais preservados.
 
-To learn more about developing your project with Expo, look at the following resources:
+Pastas das próximas funcionalidades serão criadas quando houver conteúdo real.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Configuração pública
 
-## Join the community
+Copie `.env.example` para `.env.local` se necessário. `EXPO_PUBLIC_API_URL` pode ficar vazia; não há integração de rede habilitada. Valores `EXPO_PUBLIC_*` entram no aplicativo: nunca incluir credenciais, senhas ou tokens.
 
-Join our community of developers creating universal apps.
+Material Symbols está disponível por `expo-symbols` do SDK em Android/web; iOS usa SF Symbols. O mapeamento uniforme baseado no Figma fica para DS-001 antes da criação dos componentes de ícones.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Não foram implementadas telas de Login/Home, autenticação, AWS ou regras de negócio.

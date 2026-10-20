@@ -41,3 +41,9 @@ example
 # generated native folders
 /ios
 /android
+
+# Environment and test artifacts
+.env
+.env.*
+!.env.example
+coverage/
