@@ -6,7 +6,9 @@ Aplicação assistida por IA codex SSD
 
 ##
 
-![Tela de recebimento de peças](/specs/03-features/AUTH-001-login/assets/login-reference.png)
+<p align="center">
+  <img src="./specs/03-features/AUTH-001-login/assets/login-reference.png" alt="Tela do aplicativo" width="300">
+</p>
 
 ## Tecnologia
 
