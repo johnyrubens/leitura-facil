@@ -17,6 +17,7 @@ Aplicação assistida por IA codex SSD
   &nbsp;&nbsp;&nbsp;
   <img src="./specs/03-features/AUTH-001-login/assets/Apontamento%20dos%20consumos.png" alt="Apontamento dos consumos" width="180">
 </p>
+
 ## Tecnologia
 
 - React Native
