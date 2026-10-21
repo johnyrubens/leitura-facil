@@ -4,10 +4,19 @@ Aplicativo móvel destinado à coleta, conferência e sincronização de leitura
 Priorizar confiabilidade dos dados, operação em campo, acessibilidade, desempenho, simplicidade da interface e rastreabilidade das alterações.
 Aplicação assistida por IA codex SSD
 
-##
+## Prototipos Telas
 
-![Tela de recebimento de peças](/specs/03-features/AUTH-001-login/assets/login-reference.png)
-
+<p align="center">
+  <img src="./specs/03-features/AUTH-001-login/assets/login-reference.png" alt="Tela de login" width="180">
+  &nbsp;&nbsp;&nbsp;
+  <img src="./specs/03-features/AUTH-001-login/assets/Painel%20Leitura%20Fácil_%20Água%20e%20Gás.png" alt="Painel de água e gás" width="180">
+  &nbsp;&nbsp;&nbsp;
+  <img src="./specs/03-features/AUTH-001-login/assets/Painel%20de%20Competência%20em%20Leitura.png" alt="Painel de competência" width="180">
+  &nbsp;&nbsp;&nbsp;
+  <img src="./specs/03-features/AUTH-001-login/assets/Listagem%20apartamentos.png" alt="Listagem de apartamentos" width="180">
+  &nbsp;&nbsp;&nbsp;
+  <img src="./specs/03-features/AUTH-001-login/assets/Apontamento%20dos%20consumos.png" alt="Apontamento dos consumos" width="180">
+</p>
 ## Tecnologia
 
 - React Native
