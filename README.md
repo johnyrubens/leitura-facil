@@ -1,4 +1,4 @@
-# Leitura Fácil
+# Leitura Fácil - versão beta
 
 Aplicativo móvel destinado à coleta, conferência e sincronização de leituras de medidores de água e gás em condomínios.
 Priorizar confiabilidade dos dados, operação em campo, acessibilidade, desempenho, simplicidade da interface e rastreabilidade das alterações.
@@ -18,32 +18,57 @@ Aplicação assistida por IA codex SSD
   <img src="./specs/03-features/AUTH-001-login/assets/Apontamento%20dos%20consumos.png" alt="Apontamento dos consumos" width="180">
 </p>
 
-## Tecnologia
+## Tecnologias
 
-- React Native
-- Expo
-- SQL Lite
-- AWS
+- React Native — desenvolvimento do aplicativo móvel.
+- Expo — ferramentas para desenvolvimento e distribuição do aplicativo.
+- SQLite — armazenamento local de dados.
+- AWS — serviços de infraestrutura em nuvem.
+
+## Desenvolvimento assistido por IA
+
+- Codex — apoio à implementação, revisão e manutenção do código.
+
+## SDD - Contexto e prompts
+
+O arquivo `AGENTS.md` reúne o contexto geral do aplicativo e as instruções que orientam o Codex durante o desenvolvimento.
+
+A pasta `prompt/` contém arquivos Markdown (`.md`) com instruções específicas para implementar funcionalidades e executar tarefas do projeto.
 
 ## Executar
 
-Requisitos: Node.js 24 LTS e npm. Após clonar, execute `npm ci`.
+### Requisitos
+
+- Node.js 24 LTS
+- npm
+
+### Instalação
+
+Após clonar o repositório, acesse a pasta do projeto e instale as dependências:
+
+```powershell
+cd leitura-facil
+npm ci
+```
+
+### Iniciar o aplicativo
+
+Inicie o ambiente de desenvolvimento:
 
 ```powershell
 npm start
-npm run android
-npm run web
 ```
 
-Use dispositivo Android ou emulador para validar SQLite. Compilação local iOS exige macOS. A rota web verifica somente a interface; SQLite web ainda não está habilitado.
+Para executar no Android:
 
 ```powershell
-npm run typecheck
-npm run lint
-npm test
-npm run format:check
-npx expo install --check
-npx expo-doctor
+npm run android
+```
+
+Para executar no navegador:
+
+```powershell
+npm run web
 ```
 
 ## Estrutura
