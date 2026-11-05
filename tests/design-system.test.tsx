@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
+import { View } from 'react-native';
 import {
   AppButton,
   AppCheckbox,
@@ -7,6 +8,17 @@ import {
   AppCard,
   AppText,
 } from '../src/components/ui';
+
+test('campo sem label remove o rótulo e seu espaço, preservando nome acessível', () => {
+  const result = render(<AppInput label="Usuário" value="" accessibilityLabel="Identificação" />);
+  expect(screen.getByText('Usuário')).toBeOnTheScreen();
+  result.rerender(<AppInput value="" accessibilityLabel="Identificação" />);
+  expect(screen.queryByText('Usuário')).toBeNull();
+  expect(result.UNSAFE_queryAllByType(AppText)).toHaveLength(0);
+  const container = result.UNSAFE_getAllByType(View)[0];
+  expect(container.children).toHaveLength(1);
+  expect(screen.getByLabelText('Identificação')).toBeOnTheScreen();
+});
 
 test('senha inicia oculta e permite alternância sem alterar valor', () => {
   const change = jest.fn();

@@ -3,6 +3,7 @@ import { Image, StyleSheet } from 'react-native';
 import { NavigationCard } from '../src/components/ui';
 import { colors, opacity } from '../src/theme';
 import ExamplesScreen from '../app/navigation-card-examples';
+import { useSessionStore } from '../src/stores/session';
 
 const mockReplace = jest.fn();
 jest.mock('expo-router', () => ({ useRouter: () => ({ replace: mockReplace }) }));
@@ -73,6 +74,7 @@ test('prioriza pressed sobre hover e disabled sobre ambos; mantém indicação d
 });
 
 test('exemplos executam ações distintas e oferecem retorno à Home', () => {
+  useSessionStore.getState().signIn({ username: 'demo', mode: 'mock' });
   render(<ExamplesScreen />);
   fireEvent.press(screen.getByRole('button', { name: /^Dashboard\./ }));
   expect(

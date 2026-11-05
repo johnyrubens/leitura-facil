@@ -5,13 +5,22 @@ import { useSessionStore } from '@/stores/session';
 import { theme } from '@/theme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Constants from 'expo-constants';
-import { useRef } from 'react';
+import { useRouter } from 'expo-router';
+import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Image, Keyboard, StyleSheet, View } from 'react-native';
 
 export default function LoginScreen() {
+  const router = useRouter();
+  const session = useSessionStore((state) => state.session);
   const signIn = useSessionStore((state) => state.signIn);
   const pending = useRef(false);
+  useEffect(() => {
+    if (!session) return;
+    // Aguarda a atualização das rotas protegidas antes de navegar no Android.
+    const frame = requestAnimationFrame(() => router.replace('/home'));
+    return () => cancelAnimationFrame(frame);
+  }, [session, router]);
   const {
     control,
     handleSubmit,
@@ -67,9 +76,10 @@ export default function LoginScreen() {
             name="username"
             render={({ field: { value, onChange, onBlur } }) => (
               <AppInput
-                label="Usuário"
+                label=""
                 leftIcon="person"
                 placeholder="Usuário"
+                accessibilityLabel="Usuário"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -86,9 +96,10 @@ export default function LoginScreen() {
             name="password"
             render={({ field: { value, onChange, onBlur } }) => (
               <AppInput
-                label="Senha"
+                label=""
                 leftIcon="lock"
                 placeholder="Senha"
+                accessibilityLabel="Senha"
                 type="password"
                 value={value}
                 onChangeText={onChange}
@@ -109,15 +120,15 @@ export default function LoginScreen() {
             </AppText>
           )}
           <AppButton label="Entrar" loading={isSubmitting} onPress={() => void onSubmit()} />
-          <AppText variant="caption" align="center" color="neutral600">
+          {/*<AppText variant="caption" align="center" color="neutral600">
             Ou entre com
           </AppText>
           <AppButton label="Entrar com biometria" variant="outline" disabled />
           <AppText variant="caption" color="neutral600">
             Lembrar usuário, recuperação de senha e biometria indisponíveis nesta versão.
-          </AppText>
+          </AppText> */}
           <AppText variant="caption" color="neutral600" align="center">
-            Ambiente de demonstração — autenticação simulada.1
+            Ambiente de demonstração — autenticação simulada.
           </AppText>
           <AppText variant="caption" color="neutral600" align="center">
             Versão {Constants.expoConfig?.version ?? '1.0.0'}

@@ -16,7 +16,7 @@ regras. Não adicionar biblioteca de estilo ou duplicar componentes para cada ca
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 | AppText     | variant bodyL, color neutral900; aceita variantes, ColorToken, align e TextProps                                            |
 | AppButton   | label, variant primary/secondary/outline, loading e PressableProps; altura mínima 50, raio 12                               |
-| AppInput    | label visível, value/onChangeText/onBlur controlados; type text/email/number/password; error, disabled e leftIcon opcionais |
+| AppInput    | label opcional, value/onChangeText/onBlur controlados; type text/email/number/password; error, disabled e leftIcon opcionais |
 | AppCheckbox | checked e onChange controlados; label; área com altura mínima 50 e caixa visual 24                                          |
 | AppCard     | View não interativa; padding md (16), background white, rounded lg (16); sem borda/sombra automática                        |
 | AppScreen   | Safe Area em todas as bordas; fundo neutral050, padding lg (24), gap md (16); scrollable false, avoidKeyboard true          |
@@ -28,8 +28,8 @@ os tokens semânticos; consulte [COMP-001](../03-features/COMP-001.md).
 
 `NavigationCardGrid` organiza esses cards em duas colunas, com padding e gaps md,
 altura igual por linha e último item ímpar à esquerda. Não contém rolagem ou
-navegação. NavigationCard empilha seu conteúdo abaixo de 240 de largura para
-acomodar células estreitas; consulte [COMP-002](../03-features/COMP-002.md).
+navegação. NavigationCard mantém conteúdo horizontal abaixo de 240, com miniatura
+24 × 24 e padding/gap spacing.sm; consulte [COMP-002](../03-features/COMP-002.md).
 
 `AppDateInput`, `StatusBadge` e `ProgressBar` não estão
 implementados. Criá-los somente na feature que os solicitar. Datas devem usar
@@ -76,7 +76,9 @@ Controller, sem acoplar AppInput a uma biblioteca de formulário.
 - Dar role e nome acessível às ações. Usar accessibilityState checked em checkbox,
   disabled em indisponíveis e busy em carregamento. Títulos de seção podem usar
   accessibilityRole="header". Erros usam alert e live region quando suportado.
-- Labels de campos devem ser visíveis; placeholder não substitui label. AppInput
+- `AppInput.label` é opcional. Quando omitido ou vazio, não renderizar rótulo nem
+  reservar espaço para ele. Sem rótulo visível, fornecer `accessibilityLabel` para
+  identificar o campo ao leitor de tela; placeholder não substitui nome acessível. AppInput
   inclui o erro no accessibilityHint e mostra mensagem acessível. Senhas mantêm
   valor ao alternar visibilidade e o botão tem nome que descreve a próxima ação.
 - Alvos de toque novos devem ter ao menos 50 de altura e largura útil equivalente;

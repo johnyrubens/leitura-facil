@@ -57,6 +57,7 @@ export function NavigationCard({
       onBlur={() => setFocused(false)}
       style={({ pressed }) => [
         styles.card,
+        compact && styles.compactCard,
         !disabled && (pressed ? styles.pressed : hovered ? styles.hovered : undefined),
         !disabled && focused && styles.focused,
         disabled && styles.disabled,
@@ -69,8 +70,13 @@ export function NavigationCard({
         accessibilityElementsHidden
         importantForAccessibility="no-hide-descendants"
       >
-        <Image source={thumbnail} resizeMode="cover" accessible={false} style={styles.thumbnail} />
-        <View style={[styles.text, compact && styles.compactText]}>
+        <Image
+          source={thumbnail}
+          resizeMode="cover"
+          accessible={false}
+          style={[styles.thumbnail, compact && styles.compactThumbnail]}
+        />
+        <View style={styles.text}>
           <AppText variant="headingM" color="textPrimary">
             {title}
           </AppText>
@@ -101,8 +107,9 @@ const styles = StyleSheet.create({
   contents: { flexDirection: 'row', alignItems: 'center', gap: 12, flex: 1 },
   thumbnail: { width: 56, height: 56, borderRadius: radius.sm, flexShrink: 0 },
   text: { flex: 1, minWidth: 0, gap: 4 },
-  compactContents: { flexDirection: 'column', alignItems: 'flex-start' },
-  compactText: { flex: 0, alignSelf: 'stretch' },
+  compactCard: { padding: spacing.sm },
+  compactContents: { gap: spacing.sm },
+  compactThumbnail: { width: 24, height: 24 },
   chevron: { width: 20, flexShrink: 0 },
   hovered: { backgroundColor: colors.surfaceHover, borderColor: colors.borderHover },
   pressed: { backgroundColor: colors.surfacePressed },

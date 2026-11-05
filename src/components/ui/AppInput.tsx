@@ -5,7 +5,7 @@ import { AppText } from './AppText';
 import { AppIcon, type AppIconProps } from './AppIcon';
 
 export interface AppInputProps extends Omit<TextInputProps, 'secureTextEntry'> {
-  label: string;
+  label?: string;
   type?: 'text' | 'email' | 'number' | 'password';
   error?: string;
   disabled?: boolean;
@@ -31,7 +31,7 @@ export function AppInput({
   const blocked = disabled || !editable;
   return (
     <View style={styles.container}>
-      <AppText variant="labelM">{label}</AppText>
+      {label ? <AppText variant="labelM">{label}</AppText> : null}
       <View
         style={[
           styles.field,

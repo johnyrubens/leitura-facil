@@ -1,5 +1,9 @@
 # COMP-002 — NavigationCardGrid
 
+> Atualização solicitada: duas colunas com conteúdo horizontal também no modo
+> compacto. Abaixo de 240, miniatura 24 × 24, padding e gap spacing.sm substituem
+> o empilhamento e a miniatura 56 mencionados no registro original abaixo.
+
 Implementação de `prompts/COMP-002-NavigationCardGrid.md`. O caminho obrigatório
 `specs/02-dsign-system/tokens.md` não existe; utilizada a documentação real
 `specs/02-design-system/tokens.md` e as exportações existentes em `@/theme`.

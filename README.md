@@ -71,6 +71,30 @@ Para executar no navegador:
 npm run web
 ```
 
+### Iniciar um dispositivo virtual Android sem abrir o Android Studio
+
+Com o Android SDK, o Android Emulator e um dispositivo virtual (AVD) já instalados e configurados, execute os comandos abaixo no PowerShell. Eles usam o caminho padrão do SDK no Windows; ajuste-o se a instalação estiver em outro local.
+
+Liste os dispositivos virtuais disponíveis:
+
+```powershell
+& "$env:LOCALAPPDATA\Android\Sdk\emulator\emulator.exe" -list-avds
+```
+
+Inicie um dos dispositivos, substituindo `Nome_Do_Dispositivo` pelo nome retornado na listagem:
+
+```powershell
+& "$env:LOCALAPPDATA\Android\Sdk\emulator\emulator.exe" -avd "Nome_Do_Dispositivo"
+```
+
+Por exemplo, se o dispositivo `Pixel_6_API_35` estiver disponível:
+
+```powershell
+& "$env:LOCALAPPDATA\Android\Sdk\emulator\emulator.exe" -avd "Pixel_6_API_35"
+```
+
+Após o emulador terminar de iniciar, abra outro terminal na pasta do projeto e execute `npm run android` para iniciar o aplicativo nele.
+
 ## Estrutura
 
 - `app/`: layout Expo Router e rota de verificação.

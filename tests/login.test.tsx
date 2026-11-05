@@ -4,6 +4,10 @@ import { loginSchema } from '../src/forms/loginSchema';
 import { useSessionStore } from '../src/stores/session';
 import * as authService from '../src/services/auth/mockAuthService';
 
+const mockReplace = jest.fn();
+const mockRouter = { replace: mockReplace };
+jest.mock('expo-router', () => ({ useRouter: () => mockRouter }));
+
 beforeEach(() => useSessionStore.getState().signOut());
 
 test('schema remove espaços externos do usuário e preserva senha', () => {
@@ -39,5 +43,6 @@ test('credenciais incorretas falham e demonstrativas criam sessão sem senha', a
     expect(useSessionStore.getState().session).toEqual({ username: 'demo', mode: 'mock' }),
   );
   expect(screen.getByLabelText('Senha').props.value).toBe('');
+  await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/home'));
   authenticate.mockRestore();
 });

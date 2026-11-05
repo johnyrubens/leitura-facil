@@ -1,5 +1,9 @@
 # COMP-002 — NavigationCardGrid
 
+> Atualização solicitada: preservar duas colunas e conteúdo horizontal nos cards.
+> Abaixo de 240, NavigationCard reduz miniatura para 24 × 24 e padding/gap para
+> spacing.sm, substituindo o empilhamento descrito anteriormente.
+
 ## Finalidade e referências
 
 Organizar uma lista curta de opções em duas colunas iguais, reutilizando
@@ -48,7 +52,7 @@ demais overrides continuam sob responsabilidade do consumidor.
 
 - Itens são agrupados em Views de até dois cards, da esquerda para a direita e de
   cima para baixo. Não há virtualização, ScrollView ou FlatList internos.
-- Padding externo, gap entre linhas e gap entre colunas usam `spacing.md`.
+- Padding interno do contêiner usa `spacing.sm / 2` (4); gaps entre linhas e colunas usam `spacing.md`.
 - O onLayout da View interna mede a largura após o padding do contêiner, incluindo
   alterações via style. A largura da célula é
   `Math.max(0, (larguraInterna - spacing.md) / 2)`.

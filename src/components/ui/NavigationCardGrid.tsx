@@ -57,7 +57,7 @@ export function NavigationCardGrid({ items, style, testID }: NavigationCardGridP
 }
 
 const styles = StyleSheet.create({
-  container: { padding: spacing.md },
+  container: { padding: spacing.sm / 2 },
   rows: { gap: spacing.md },
   row: { flexDirection: 'row', alignItems: 'stretch', gap: spacing.md },
   cell: { flexGrow: 1, flexBasis: 0, minWidth: 0 },

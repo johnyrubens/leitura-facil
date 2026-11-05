@@ -80,6 +80,7 @@ Preferir algarismos tabulares para leituras e indicadores numéricos quando houv
 ### `AppInput`
 
 - Suportar `label`, `placeholder`, `value`, `onChangeText`, `error`, `disabled` e propriedades nativas relevantes.
+- `label` é opcional; quando omitido ou vazio, não renderizar o rótulo nem reservar seu espaço. Permitir `accessibilityLabel` independente do rótulo visual.
 - Suportar texto, e-mail, números e senha.
 - Quando configurado como senha, iniciar com o texto oculto e permitir alternar visibilidade por botão acessível.
 - Estados visuais: padrão, foco, preenchido, erro e desabilitado.
@@ -117,6 +118,42 @@ Preferir algarismos tabulares para leituras e indicadores numéricos quando houv
 - Utilizar `View`, `ScrollView` e Flexbox; evitar posições absolutas para estrutura de formulários.
 - Permitir tratamento adequado de telas menores e teclado, quando aplicável.
 
+### `NavigationCard`
+
+- Botão reutilizável com miniatura, título, descrição e chevron opcional, implementado em `src/components/ui/NavigationCard.tsx`.
+- Exportar `NavigationCard` e `NavigationCardProps` por `@/components/ui`.
+- Receber as propriedades obrigatórias `title: string`, `description: string`, `thumbnail: ImageSourcePropType` e `onPress: () => void`.
+- Suportar `showChevron?: boolean` (padrão `true`), `disabled?: boolean` (padrão `false`), `style?: StyleProp<ViewStyle>`, `accessibilityLabel?: string` e `testID?: string`.
+- Manter a ação sob responsabilidade da tela consumidora, sem conhecer rotas, autenticação ou regras de negócio.
+- Utilizar `Pressable`, `Image`, `View`, `AppText` e `AppIcon`, sem novas dependências.
+- Ocupar a largura disponível, com altura mínima de `88` e crescimento conforme o conteúdo. Não limitar linhas dos textos nem impedir a escala de fonte do sistema.
+- Exibir miniatura de `56 × 56`, com `resizeMode="cover"` e `radius.sm`; chevron `chevron_right` de `20`, removendo também seu espaço quando `showChevron` for `false`.
+- Manter layout horizontal em todas as larguras. Abaixo de `240`, usar miniatura `24 × 24`, padding e gap `spacing.sm`, medindo a largura por `onLayout`. Preservar textos completos e chevron.
+- Aplicar `spacing.md`, `radius.md`, `borders.thin` e `shadows.card`. Os gaps de `12` entre áreas e `4` entre textos, assim como as dimensões específicas acima, são medidas locais, não novos tokens globais.
+- Usar `headingM` e `textPrimary` no título; `bodyM` e `textSecondary` na descrição; `textSecondary` no chevron.
+- Estados: padrão (`surface` e `border`), hover (`surfaceHover` e `borderHover`), pressionado (`surfacePressed`), foco (`borderFocus`) e desabilitado (`surfaceDisabled` e `opacity.disabled`), usando as cores de `@/theme`.
+- Priorizar a superfície desabilitada sobre pressionado, hover e padrão; aplicar a borda de foco quando habilitado. `disabled` deve impedir o callback.
+- Expor um único botão acessível, com estado desabilitado e rótulo padrão composto por título e descrição (`${title}. ${description}`), substituível por `accessibilityLabel`. Ocultar descendentes visuais da árvore de acessibilidade para evitar anúncios duplicados.
+- Referência detalhada: [COMP-001 — NavigationCard](../specs/components/COMP-001-NavigationCard.md).
+
+### `NavigationCardGrid`
+
+- Organizar uma lista curta de `NavigationCard` em duas colunas iguais, em `src/components/ui/NavigationCardGrid.tsx`, reutilizando o componente existente.
+- Exportar `NavigationCardGrid`, `NavigationCardGridProps` e `NavigationCardGridItem` por `@/components/ui`.
+- Definir `NavigationCardGridItem extends NavigationCardProps`, acrescentando `id: string` obrigatório, único e estável, usado como chave.
+- Receber `items: NavigationCardGridItem[]`, `style?: StyleProp<ViewStyle>` e `testID?: string`. Cada item fornece seus textos, imagem, ação, estados e demais propriedades do card.
+- Preencher linhas de até dois cards, da esquerda para a direita e de cima para baixo, preservando a ordem de `items`.
+- Utilizar `spacing.sm / 2` (4) no padding interno do contêiner e `spacing.md` nos espaços entre linhas e colunas.
+- Medir a largura interna disponível por `onLayout`, após o padding, e calcular cada célula como `Math.max(0, (larguraInterna - spacing.md) / 2)`. Recalcular quando o contêiner mudar, sem depender da largura da tela.
+- Antes da primeira medição, distribuir as células igualmente com Flexbox.
+- Em listas ímpares, reservar uma célula vazia à direita para manter o último card na coluna esquerda com a mesma largura dos demais. Com lista vazia, não renderizar linhas ou cards, preservando o padding externo.
+- Igualar a altura dos cards de cada linha ao maior conteúdo daquela linha por Flexbox, sem altura fixa. Linhas diferentes podem ter alturas diferentes.
+- Preservar quebra de texto, escala de fonte e adaptação horizontal compacta do `NavigationCard`, incluindo a miniatura reduzida.
+- Aplicar o `style` da grade ao contêiner externo e o `style` de cada item ao card; `flexGrow: 1` e `alignSelf: 'stretch'` da grade prevalecem nesses atributos do card para preencher a célula.
+- Encaminhar ações e estados individualmente, incluindo `disabled`, `showChevron` e rótulos acessíveis. Não criar estado global de interação para a grade.
+- Utilizar `View` e Flexbox, sem duplicar `NavigationCard`, adicionar dependências, implementar navegação, rolagem ou virtualização. A tela consumidora controla a rolagem.
+- Referência detalhada: [COMP-002 — NavigationCardGrid](../specs/components/COMP-002-NavigationCardGrid.md). Tokens de ambos os componentes: [Design System](../specs/02-design-system/tokens.md).
+
 ## Estrutura esperada
 
 ```text
@@ -135,7 +172,9 @@ src/
         ├── AppCheckbox.tsx
         ├── AppCard.tsx
         ├── AppIcon.tsx
-        └── AppScreen.tsx
+        ├── AppScreen.tsx
+        ├── NavigationCard.tsx
+        └── NavigationCardGrid.tsx
 ```
 
 Se o projeto já possuir estrutura equivalente, reutilizar e justificar quaisquer adaptações.
@@ -152,6 +191,12 @@ Se o projeto já possuir estrutura equivalente, reutilizar e justificar quaisque
 8. A implementação respeita TypeScript estrito e a estrutura Expo existente.
 9. Executar os scripts de TypeScript, lint e testes disponíveis; não declarar aprovação de verificações não executadas.
 10. Nenhuma tela de autenticação ou integração AWS é implementada nesta tarefa.
+11. `NavigationCard` apresenta conteúdo, imagem, chevron opcional e estados de interação conforme as props; `disabled` impede acionamento e o leitor de tela recebe um único botão com rótulo adequado.
+12. `NavigationCard` preserva textos completos e escala de fonte, alternando entre layout horizontal e compacto quando sua largura muda.
+13. `NavigationCardGrid` aceita listas com 0, 1, 2, 3 e 5 itens, mantém ordem, duas colunas iguais e o último item ímpar à esquerda, sem expansão.
+14. A grade recalcula larguras conforme o contêiner, respeita padding e gaps por tokens, iguala alturas apenas dentro de cada linha e encaminha props e callbacks dos itens.
+15. Manter exemplos de uso individual em `app/navigation-card-examples.tsx` e da grade com cinco itens em `app/navigation-card-grid-examples.tsx`, incluindo descrição longa, card desabilitado, ausência de chevron e alteração de largura do contêiner.
+16. Validar interações e estrutura por testes automatizados; conferir geometria, texto ampliado, imagens, sombras e acessibilidade em Android/iOS e web. Testes Jest não substituem inspeção visual nativa.
 
 ## Entrega esperada
 

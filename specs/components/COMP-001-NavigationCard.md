@@ -1,5 +1,10 @@
 # COMP-001 — NavigationCard
 
+> Atualização de layout solicitada pelo usuário: manter conteúdo horizontal também
+> abaixo de 240, usando miniatura 24 × 24, padding e gap spacing.sm. Texto e chevron
+> permanecem lado a lado com a imagem. Esta decisão substitui as referências ao
+> empilhamento e à preservação da miniatura 56 no modo compacto descritas abaixo.
+
 ## Finalidade e referências
 
 Botão reutilizável de navegação com miniatura, título, descrição e chevron opcional.

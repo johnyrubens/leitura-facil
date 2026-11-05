@@ -74,10 +74,10 @@ test('recalcula largura pelo conteúdo interno e encaminha props e ações indiv
   cards.forEach((card) => expect(StyleSheet.flatten(card.props.style).flexGrow).toBe(1));
 });
 
-test('card estreito empilha conteúdo sem alterar dimensões da miniatura e volta ao layout horizontal', () => {
+test('card mantém conteúdo horizontal ao reduzir e ampliar a largura', () => {
   const result = render(<NavigationCard {...makeItems(1)[0]} />);
   for (const [width, direction] of [
-    [160, 'column'],
+    [160, 'row'],
     [400, 'row'],
   ] as const) {
     fireEvent(screen.getByTestId('card-0'), 'layout', {

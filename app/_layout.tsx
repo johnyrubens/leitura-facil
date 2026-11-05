@@ -11,7 +11,6 @@ import {
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DatabaseProvider } from '@/database/provider';
 import { theme } from '@/theme/tokens';
-import { useSessionStore } from '@/stores/session';
 
 class InitializationBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -36,7 +35,6 @@ function InitializationMessage({ text }: { text: string }) {
 }
 
 export default function RootLayout() {
-  const authenticated = useSessionStore((state) => state.session !== null);
   const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -51,14 +49,11 @@ export default function RootLayout() {
   if (!loaded) return <InitializationMessage text="Preparando aplicativo…" />;
   const routes = (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Protected guard={!authenticated}>
-        <Stack.Screen name="login" />
-      </Stack.Protected>
-      <Stack.Protected guard={authenticated}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="navigation-card-examples" />
-        <Stack.Screen name="navigation-card-grid-examples" />
-      </Stack.Protected>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="login" />
+      <Stack.Screen name="home" />
+      <Stack.Screen name="navigation-card-examples" />
+      <Stack.Screen name="navigation-card-grid-examples" />
     </Stack>
   );
   return (

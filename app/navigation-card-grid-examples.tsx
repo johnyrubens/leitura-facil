@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AuthenticatedScreen } from '@/components/AuthenticatedScreen';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import {
@@ -57,21 +58,23 @@ export default function NavigationCardGridExamplesScreen() {
   ];
 
   return (
-    <AppScreen scrollable>
-      <AppButton label="Voltar para Home" variant="outline" onPress={() => router.replace('/')} />
-      <AppText variant="headingXL" accessibilityRole="header">
-        Exemplos de NavigationCardGrid
-      </AppText>
-      <AppButton
-        label={narrow ? 'Usar largura disponível' : 'Reduzir contêiner'}
-        variant="outline"
-        onPress={() => setNarrow(!narrow)}
-      />
-      <View style={narrow ? styles.narrow : styles.full}>
-        <NavigationCardGrid items={items} testID="example-grid" />
-      </View>
-      <AppText accessibilityLiveRegion="polite">{message}</AppText>
-    </AppScreen>
+    <AuthenticatedScreen>
+      <AppScreen scrollable>
+        <AppButton label="Voltar para Home" variant="outline" onPress={() => router.replace('/')} />
+        <AppText variant="headingXL" accessibilityRole="header">
+          Exemplos de NavigationCardGrid
+        </AppText>
+        <AppButton
+          label={narrow ? 'Usar largura disponível' : 'Reduzir contêiner'}
+          variant="outline"
+          onPress={() => setNarrow(!narrow)}
+        />
+        <View style={narrow ? styles.narrow : styles.full}>
+          <NavigationCardGrid items={items} testID="example-grid" />
+        </View>
+        <AppText accessibilityLiveRegion="polite">{message}</AppText>
+      </AppScreen>
+    </AuthenticatedScreen>
   );
 }
 
